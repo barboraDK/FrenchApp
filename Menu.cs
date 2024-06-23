@@ -8,8 +8,6 @@ public static class Menu
 
         string input = Console.ReadLine().ToUpper();
         
-
-
         switch (input)
         {
             case "A":

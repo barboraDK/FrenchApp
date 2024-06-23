@@ -8,7 +8,6 @@ class WordAdder
     private List<Word> FrenchDuplicates { get; set; }
     private List<Word> EnglishDuplicates { get; set; }
 
-
     public void AddWords()
     {
         NewWord = AskForInput();
@@ -30,7 +29,7 @@ class WordAdder
         Menu.SelectNextActivity();
     }
 
-    private Word AskForInput() // valiodace vstupu
+    private Word AskForInput()
     {
 
         Console.WriteLine("You'll be asked to type in a french word, its enghlish tranlation, and specify word class and gender.\n" +
@@ -124,7 +123,7 @@ class WordAdder
 
     private void CheckInput()
     {
-        Console.WriteLine("\nAdd the following word to your depository? \n\n" +
+        Console.WriteLine("\nAdd the following word to your repository? \n\n" +
             $"French Expression: {NewWord.FrenchExpression}\n" +
             $"English Translation: {NewWord.EnglishExpression}\n" +
             $"Word Class: {NewWord.WordClass}\n" +
@@ -219,7 +218,7 @@ class WordAdder
         {
             if (word.EnglishExpression == NewWord.EnglishExpression && word.FrenchExpression == NewWord.FrenchExpression)
             {
-                Console.WriteLine($"You already have the word {word.FrenchExpression} translated as {NewWord.EnglishExpression} in your depository.");
+                Console.WriteLine($"You already have the word {word.FrenchExpression} translated as {NewWord.EnglishExpression} in your repository.");
                 Thread.Sleep(2000);
                 Console.WriteLine();
                 Menu.SelectNextActivity();
@@ -230,7 +229,7 @@ class WordAdder
 
             if (word.FrenchExpression == NewWord.FrenchExpression && word.EnglishExpression != NewWord.EnglishExpression)
             {
-                Console.WriteLine($"You already have the word {NewWord.FrenchExpression} in your depository translated as {word.EnglishExpression}.");
+                Console.WriteLine($"You already have the word {NewWord.FrenchExpression} in your repository translated as {word.EnglishExpression}.");
             }
         }
         Thread.Sleep(2000);
