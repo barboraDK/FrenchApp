@@ -31,7 +31,6 @@ class WordAdder
 
     private Word AskForInput()
     {
-
         Console.WriteLine("You'll be asked to type in a french word, its enghlish tranlation, and specify word class and gender.\n" +
             "It helps to identify words properly, so that there are no duplicates in your private repository.\n\n" +
             "Press enter to continue");
@@ -45,7 +44,6 @@ class WordAdder
         Console.WriteLine("Write word class (1: nom, 2: adjectif, 3: adverbe, 4: verbe):");
 
         string newExpressionClassInput = Console.ReadLine();
-
 
         string newExpressionClass = string.Empty;
         string newExpressionGender = string.Empty;
@@ -71,7 +69,6 @@ class WordAdder
         {
             Console.WriteLine("Write word gender (1: masculin, 2: féminin):");
             string newExpressionGenderInput = Console.ReadLine();
-
 
             switch (newExpressionGenderInput)
             {
@@ -101,7 +98,6 @@ class WordAdder
         string input = Console.ReadLine().ToUpper();
         Console.Clear();
 
-
         switch (input)
         {
             case "A":
@@ -117,7 +113,6 @@ class WordAdder
                 Console.Clear();
                 SelectNextActionWithDuplicate();
                 break;
-
         }
     }
 
@@ -132,7 +127,6 @@ class WordAdder
 
         string nextActionInput = Console.ReadLine().ToUpper();
         Console.Clear();
-
 
         switch (nextActionInput)
         {
@@ -155,7 +149,6 @@ class WordAdder
     private List<Word> CheckForDuplicateFrench()
     {
         List<Word> words = new List<Word>();
-
 
         string currentDirectory = Directory.GetCurrentDirectory();
         string projectDirectory = Directory.GetParent(currentDirectory).Parent.Parent.FullName;
@@ -209,7 +202,6 @@ class WordAdder
             };
             words.Add(word);
         }
-
         return words;
     }
     private void ManageFrenchDuplicates()
@@ -250,7 +242,6 @@ class WordAdder
                 Console.WriteLine("\nWrite an updated english translation:");
                 NewWord.EnglishExpression = Console.ReadLine();
                 Console.Clear();
-                
             }
         }
         EnglishDuplicates.Clear();
