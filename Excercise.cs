@@ -2,36 +2,43 @@
 
 public class Excercise
 {
+    private IInOutHandler InOutHandler { get; }
+    private BaseWordRepository WordRepository { get; }
+
+    public Excercise(BaseWordRepository wordRepository, IInOutHandler inOutHandler)
+    {
+        WordRepository = wordRepository;
+        InOutHandler = inOutHandler;
+    }
 
     public void DoExcercise()
     {
         int count = 5;
-        WordRepository wordRepository = new WordRepository(count);
-        List<Word> randomWords = wordRepository.FindRandomWords();
+        List<Word> randomWords = WordRepository.FindRandomWords(count);
 
-        Console.WriteLine($"Translate {count} following words.");
-        Console.WriteLine($"Press Enter to continue.");
-        Console.ReadLine();
-        Console.Clear();
+        InOutHandler.WriteLine($"Translate {count} following words.");
+        InOutHandler.WriteLine($"Press Enter to continue.");
+        InOutHandler.ReadLine();
+        InOutHandler.Clear();
 
         foreach (Word word in randomWords)
         {
-            Console.WriteLine(word.EnglishExpression);
-            string translationInput = Console.ReadLine();
-            Console.Clear();
+            InOutHandler.WriteLine(word.EnglishExpression);
+            string translationInput = InOutHandler.ReadLine();
+            InOutHandler.Clear();
             if (translationInput.Trim() == word.FrenchExpression)
             {
-                Console.WriteLine("Well done");
+                InOutHandler.WriteLine("Well done");
                 word.Result = Result.correct;
             }
             else
             {
-                Console.WriteLine($"This is wrong. Correct translation is {word.FrenchExpression}.");
+                InOutHandler.WriteLine($"This is wrong. Correct translation is {word.FrenchExpression}.");
                 word.Result = Result.wrong;
 
             }
-            Console.ReadLine();
-            Console.Clear();
+            InOutHandler.ReadLine();
+            InOutHandler.Clear();
         }
 
         IEnumerable<Word> CorrectAnswers = randomWords.Where(w => w.Result == Result.correct);
@@ -39,10 +46,12 @@ public class Excercise
         int numberOfCorrectAnswers = CorrectAnswers.Count();
         int score = 100 * numberOfCorrectAnswers / count;
 
-        Console.WriteLine($"Your score is {score} %");
-        Console.ReadLine();
-        Console.Clear();
-        Menu.SelectNextActivity();
+        InOutHandler.WriteLine($"Your score is {score} %");
+        InOutHandler.ReadLine();
+        InOutHandler.Clear();
+        Menu menu = new Menu(InOutHandler, WordRepository);
+        menu.RunMenu();
+        
 
     }
  }

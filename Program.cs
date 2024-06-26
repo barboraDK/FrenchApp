@@ -2,8 +2,12 @@
 
 class Program 
 {
-    static void Main()
+     static void Main()
     {
-            Menu.SelectActivity();
+        ConsoleWrapper consoleWrapper = new ConsoleWrapper();
+        WordRepository wordRepository = new WordRepository(consoleWrapper);
+        Menu menu = new Menu(consoleWrapper, wordRepository);
+
+        menu.RunMenu();
     }
 }
