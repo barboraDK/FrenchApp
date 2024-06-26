@@ -21,7 +21,6 @@ public class WordRepository
         string projectDirectory = Directory.GetParent(currentDirectory).Parent.Parent.FullName;
         string databasePath = Path.Combine(projectDirectory, "vocabularydb");
 
-
         try
         {
             using SqliteConnection connection = new SqliteConnection($"Data Source={databasePath}");
