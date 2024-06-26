@@ -1,61 +1,47 @@
 ﻿namespace FrenchApp;
 
-public static class Menu
+public class Menu
 {
-    public static void SelectActivity()
-    {
-        Console.WriteLine("Would you like to add words (A) or do execise (E)?");
+    private IInOutHandler InOutHandler { get; }
+    private BaseWordRepository WordRepository { get; }
 
-        string input = Console.ReadLine().ToUpper();
-        
-        switch (input)
-        {
-            case "A":
-                Console.Clear();
-                WordAdder wordAdder = new WordAdder();
-                wordAdder.AddWords();
-                break;
-            case "E":
-                Console.Clear();
-                Excercise excercise = new Excercise();
-                excercise.DoExcercise();
-                break;
-            default:
-                Console.WriteLine();
-                Console.WriteLine("Invalid input. Please, try again.");
-                Thread.Sleep(2000);
-                Console.Clear();
-                SelectActivity();
-                break;
-        }
+    public Menu(IInOutHandler inOutHandler, BaseWordRepository wordRepository)
+    {
+        InOutHandler = inOutHandler;
+        WordRepository = wordRepository;
     }
-
-    public static void SelectNextActivity()
+    public void RunMenu()
     {
+        Excercise excercise = new Excercise(WordRepository, InOutHandler);
 
-        Console.WriteLine("Would you like to go back to main menu (M) or quit the application (Q)?");
-
-        string input2 = Console.ReadLine().ToUpper();
-
-        switch (input2)
+        while (true)
         {
-            case "M":
-                Console.Clear();
-                SelectActivity();
-                break;
-            case "Q":
-                Console.Clear();
-                Console.WriteLine("Shutting down...");
-                Thread.Sleep(2000);
-                Environment.Exit(0);
-                break;
-            default:
-                Console.WriteLine();
-                Console.WriteLine("Invalid input. Please, try again.");
-                Thread.Sleep(2000);
-                Console.Clear();
-                SelectNextActivity();
-                break;
+            InOutHandler.WriteLine("Would you like to add words (A), do execise (E) or quit the application (Q)?");
+
+            string input = InOutHandler.ReadLine().ToUpper();
+
+            switch (input)
+            {
+                case "A":
+                    InOutHandler.Clear();
+                    WordRepository.AddWords();
+                    break;
+                case "E":
+                    InOutHandler.Clear();
+                    excercise.DoExcercise();
+                    break;
+                case "Q":
+                    InOutHandler.Clear();
+                    InOutHandler.WriteLine("Shutting down...");
+                    Thread.Sleep(2000);
+                    Environment.Exit(0);
+                    break;
+                default:
+                    InOutHandler.WriteLine("Invalid input. Please, try again.");
+                    Thread.Sleep(2000);
+                    InOutHandler.Clear();
+                    break;
+            }
         }
     }
 }
